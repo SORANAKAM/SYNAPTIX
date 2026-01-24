@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🎓 Academic Rescue Agent
+# 🛫 CramPilot
 
-### AI-Powered Stress-Adaptive Exam Preparation System
+### Your AI Co-Pilot for Last-Minute Exam Rescue
 
 [![React](https://img.shields.io/badge/React-19.x-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -151,7 +151,7 @@ The Gemini AI follows a specialized reasoning framework:
 ## 📁 Project Structure
 
 ```
-academic-rescue-agent/
+crampilot/
 ├── App.tsx                 # Main application component
 ├── types.ts                # TypeScript type definitions
 ├── components/
@@ -196,7 +196,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -210,8 +210,8 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 
 <div align="center">
 
-**Made with ❤️ for stressed students everywhere**
+**CramPilot** — Made with ❤️ for stressed students everywhere
 
-*Remember: It's not about finishing everything. It's about winning the exam.*
+*"When the syllabus is infinite but time isn't — we've got your back."*
 
 </div>
