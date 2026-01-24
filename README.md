@@ -11,7 +11,7 @@
 
 *Turn exam panic into a strategic battle plan*
 
-[Live Demo](#) • [Features](#-features) • [Quick Start](#-quick-start) • [How It Works](#-how-it-works)
+[Live Demo](https://crampilot.vercel.app/) • [Features](#-features) • [Quick Start](#-quick-start) • [How It Works](#-how-it-works)
 
 ---
 
