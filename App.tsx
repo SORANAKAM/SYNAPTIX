@@ -40,7 +40,7 @@ const App: React.FC = () => {
 
   const handleCheckIn = async (data: CheckInData) => {
     if (!profile || !plan) return;
-    
+
     setLoading(true);
     try {
       // Optimistic update logic could go here, but since we rely on AI for the schedule, we wait.
@@ -51,6 +51,15 @@ const App: React.FC = () => {
       setError("Failed to update plan. Connectivity issue?");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleReset = () => {
+    if (window.confirm("Are you sure you want to start over? This will delete your current plan.")) {
+      setProfile(null);
+      setPlan(null);
+      localStorage.removeItem('ara_profile');
+      localStorage.removeItem('ara_plan');
     }
   };
 
@@ -81,17 +90,18 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900">
-       {/* If we are loading an update, we show a subtle indicator overlay, but keep UI visible */}
+      {/* If we are loading an update, we show a subtle indicator overlay, but keep UI visible */}
       {loading && (
         <div className="fixed top-4 right-4 z-50 bg-indigo-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 text-sm font-medium animate-pulse">
-           <Loader2 className="w-4 h-4 animate-spin" /> Adapting Plan...
+          <Loader2 className="w-4 h-4 animate-spin" /> Adapting Plan...
         </div>
       )}
-      <Dashboard 
-        plan={plan} 
-        profile={profile} 
+      <Dashboard
+        plan={plan}
+        profile={profile}
         onCheckIn={handleCheckIn}
         isUpdating={loading}
+        onReset={handleReset}
       />
     </div>
   );

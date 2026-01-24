@@ -9,9 +9,10 @@ interface DashboardProps {
   profile: UserProfile;
   onCheckIn: (data: CheckInData) => void;
   isUpdating: boolean;
+  onReset: () => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdating }) => {
+const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdating, onReset }) => {
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
   const [showCheckInModal, setShowCheckInModal] = useState(false);
@@ -21,7 +22,7 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
   // Derived state
   const currentDay = plan.schedule[selectedDayIndex];
   const isToday = selectedDayIndex === 0; // Assuming 0 is always the start of the valid plan
-  
+
   const toggleTask = (taskId: string) => {
     const newSet = new Set(completedTasks);
     if (newSet.has(taskId)) {
@@ -62,15 +63,21 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
           <p className="text-sm text-slate-400">Strategy: {plan.strategy.pacingPhilosophy}</p>
         </div>
         <div className="flex items-center gap-4">
-           {profile.stressLevel === 'high' && (
-             <div className="flex items-center gap-2 px-3 py-1 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 text-xs font-medium">
-               <ShieldAlert className="w-3 h-3" /> High Stress Mode Active
-             </div>
-           )}
-           <div className="text-right">
-             <div className="text-xs text-slate-500">Exam Date</div>
-             <div className="font-mono font-medium">{profile.examDate}</div>
-           </div>
+          <button
+            onClick={onReset}
+            className="text-xs text-slate-400 hover:text-white underline decoration-slate-600 underline-offset-4 hover:decoration-white transition-all"
+          >
+            Start Over
+          </button>
+          {profile.stressLevel === 'high' && (
+            <div className="flex items-center gap-2 px-3 py-1 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 text-xs font-medium">
+              <ShieldAlert className="w-3 h-3" /> High Stress Mode Active
+            </div>
+          )}
+          <div className="text-right">
+            <div className="text-xs text-slate-500">Exam Date</div>
+            <div className="font-mono font-medium">{profile.examDate}</div>
+          </div>
         </div>
       </header>
 
@@ -78,7 +85,7 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
         {/* Sidebar / Strategic Overview */}
         <aside className="w-80 border-r border-slate-800 bg-slate-900 p-6 overflow-y-auto hidden md:block">
           <h2 className="text-sm uppercase tracking-wider text-slate-500 font-bold mb-4">Strategic Focus</h2>
-          
+
           <div className="mb-6">
             <h3 className="text-emerald-400 font-semibold mb-2 flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" /> Must Master
@@ -108,23 +115,23 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
           </div>
 
           <div className="mt-8 pt-6 border-t border-slate-800">
-             <h2 className="text-sm uppercase tracking-wider text-slate-500 font-bold mb-4">7-Day Load</h2>
-             <div className="h-32">
-               <ResponsiveContainer width="100%" height="100%">
-                 <BarChart data={chartData}>
-                   <XAxis dataKey="name" hide />
-                   <Tooltip 
-                    cursor={{fill: '#334155', opacity: 0.4}}
-                    contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', fontSize: '12px' }} 
-                   />
-                   <Bar dataKey="effort" radius={[4, 4, 0, 0]}>
-                     {chartData.map((entry, index) => (
-                       <Cell key={`cell-${index}`} fill={entry.isToday ? '#6366f1' : '#475569'} />
-                     ))}
-                   </Bar>
-                 </BarChart>
-               </ResponsiveContainer>
-             </div>
+            <h2 className="text-sm uppercase tracking-wider text-slate-500 font-bold mb-4">7-Day Load</h2>
+            <div className="h-32">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
+                  <XAxis dataKey="name" hide />
+                  <Tooltip
+                    cursor={{ fill: '#334155', opacity: 0.4 }}
+                    contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', fontSize: '12px' }}
+                  />
+                  <Bar dataKey="effort" radius={[4, 4, 0, 0]}>
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.isToday ? '#6366f1' : '#475569'} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </aside>
 
@@ -136,11 +143,10 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
               <button
                 key={day.dayNumber}
                 onClick={() => setSelectedDayIndex(idx)}
-                className={`flex-shrink-0 min-w-[100px] p-3 rounded-xl border transition-all ${
-                  idx === selectedDayIndex
+                className={`flex-shrink-0 min-w-[100px] p-3 rounded-xl border transition-all ${idx === selectedDayIndex
                     ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-500/20'
                     : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-750'
-                }`}
+                  }`}
               >
                 <div className="text-xs opacity-70 mb-1">Day {day.dayNumber}</div>
                 <div className="font-bold text-sm">{day.date}</div>
@@ -150,36 +156,36 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
 
           {currentDay && (
             <div className="max-w-3xl mx-auto space-y-6">
-              
+
               {/* Daily Context */}
               <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700">
-                 <div className="flex items-start justify-between mb-4">
-                   <div>
-                     <h2 className="text-2xl font-bold text-white mb-1">
-                       {selectedDayIndex === 0 ? "Today's Mission" : `Plan for ${currentDay.date}`}
-                     </h2>
-                     <p className="text-slate-400">{currentDay.checkpoint}</p>
-                   </div>
-                   <div className="bg-indigo-500/10 px-3 py-1 rounded-full text-indigo-300 text-xs font-medium border border-indigo-500/20">
-                     {currentDay.tasks.filter(t => t.type !== 'break').length} Core Tasks
-                   </div>
-                 </div>
-                 
-                 <div className="bg-slate-950/50 p-3 rounded-lg border border-slate-800 flex items-start gap-3">
-                   <ShieldAlert className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                   <div>
-                     <span className="text-amber-400 text-sm font-bold block mb-0.5">Safety Tip</span>
-                     <p className="text-sm text-slate-300">{currentDay.stressTip}</p>
-                   </div>
-                 </div>
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h2 className="text-2xl font-bold text-white mb-1">
+                      {selectedDayIndex === 0 ? "Today's Mission" : `Plan for ${currentDay.date}`}
+                    </h2>
+                    <p className="text-slate-400">{currentDay.checkpoint}</p>
+                  </div>
+                  <div className="bg-indigo-500/10 px-3 py-1 rounded-full text-indigo-300 text-xs font-medium border border-indigo-500/20">
+                    {currentDay.tasks.filter(t => t.type !== 'break').length} Core Tasks
+                  </div>
+                </div>
+
+                <div className="bg-slate-950/50 p-3 rounded-lg border border-slate-800 flex items-start gap-3">
+                  <ShieldAlert className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-amber-400 text-sm font-bold block mb-0.5">Safety Tip</span>
+                    <p className="text-sm text-slate-300">{currentDay.stressTip}</p>
+                  </div>
+                </div>
               </div>
 
               {/* Tasks List */}
               <div className="space-y-3">
                 {currentDay.tasks.map(task => (
-                  <TaskCard 
-                    key={task.id} 
-                    task={{...task, completed: completedTasks.has(task.id) || task.completed}}
+                  <TaskCard
+                    key={task.id}
+                    task={{ ...task, completed: completedTasks.has(task.id) || task.completed }}
                     onToggle={toggleTask}
                     disabled={selectedDayIndex !== 0} // Can only modify today
                   />
@@ -208,7 +214,7 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
           <div className="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl">
             <h2 className="text-xl font-bold text-white mb-4">End of Day Check-In</h2>
             <p className="text-slate-400 text-sm mb-6">Be honest. The plan will adapt to you, not the other way around.</p>
-            
+
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-3">How is your stress right now?</label>
@@ -217,13 +223,12 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
                     <button
                       key={lvl}
                       onClick={() => setCheckInStress(lvl)}
-                      className={`py-2 rounded-lg text-sm font-medium capitalize border transition-all ${
-                        checkInStress === lvl 
-                          ? lvl === 'high' ? 'bg-rose-500 text-white border-rose-500' : 
+                      className={`py-2 rounded-lg text-sm font-medium capitalize border transition-all ${checkInStress === lvl
+                          ? lvl === 'high' ? 'bg-rose-500 text-white border-rose-500' :
                             lvl === 'medium' ? 'bg-amber-500 text-black border-amber-500' :
-                            'bg-emerald-500 text-white border-emerald-500'
+                              'bg-emerald-500 text-white border-emerald-500'
                           : 'bg-slate-800 text-slate-400 border-slate-700'
-                      }`}
+                        }`}
                     >
                       {lvl}
                     </button>
@@ -242,13 +247,13 @@ const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onCheckIn, isUpdat
               </div>
 
               <div className="flex gap-3 pt-2">
-                <button 
+                <button
                   onClick={() => setShowCheckInModal(false)}
                   className="flex-1 py-3 text-slate-400 hover:text-white"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   onClick={handleCheckInSubmit}
                   disabled={isUpdating}
                   className="flex-[2] bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 text-white font-bold py-3 rounded-lg flex justify-center items-center gap-2"
